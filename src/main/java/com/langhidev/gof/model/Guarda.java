@@ -1,23 +1,25 @@
 package com.langhidev.gof.model;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
 public class Guarda {
 
     @Id
-    private String nomeGuarda;
+    private String nome;
     private String horaEntrada;
     private String horaSaida;
     private String local;
 
-    public String getNomeGuarda() {
-        return nomeGuarda;
+    public String getNome() {
+        return nome;
     }
 
-    public void setNomeGuarda(String nomeGuarda) {
-        this.nomeGuarda = nomeGuarda;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
     public String getHoraEntrada() {

@@ -1,11 +1,9 @@
 package com.langhidev.gof.model;
 
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Departamento {
@@ -13,9 +11,13 @@ public class Departamento {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String nome;
+    private String nomeLocal;
     @ManyToOne
     private Endereco endereco;
+
+    @ElementCollection
+    @CollectionTable(name = "listaDeDepartamento")
+    private List<Guarda> guardas = new ArrayList<Guarda>();
 
 
     public Long getId() {
@@ -26,12 +28,12 @@ public class Departamento {
         this.id = id;
     }
 
-    public String getNome() {
-        return nome;
+    public String getNomeLocal() {
+        return nomeLocal;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setNomeLocal(String nomeLocal) {
+        this.nomeLocal = nomeLocal;
     }
 
     public Endereco getEndereco() {
@@ -42,5 +44,11 @@ public class Departamento {
         this.endereco = endereco;
     }
 
+    public List<Guarda> getGuardas() {
+        return guardas;
+    }
 
+    public void setGuardas(List<Guarda> guardas) {
+        this.guardas = guardas;
+    }
 }

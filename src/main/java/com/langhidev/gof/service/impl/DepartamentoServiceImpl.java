@@ -6,6 +6,8 @@ import com.langhidev.gof.service.ViaCepService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -34,9 +36,7 @@ public class DepartamentoServiceImpl implements DepartamentoService {
 
     @Override
     public void inserir(Departamento departamento) {
-        salvarDepartamentoComCep(departamento);
-        // Inserir Departamento, vinculando o Endereco (novo ou existente)
-        departamentoRepository.save(departamento);
+        salvarDepartamentoComAtributos(departamento);
     }
 
     @Override
@@ -44,7 +44,7 @@ public class DepartamentoServiceImpl implements DepartamentoService {
         // Buscar departamento por ID, caso exista:
         Optional<Departamento> departamentoBd = departamentoRepository.findById(id);
         if(departamentoBd.isPresent()){
-            salvarDepartamentoComCep(departamento);
+            salvarDepartamentoComAtributos(departamento);
         }
     }
 
@@ -54,7 +54,7 @@ public class DepartamentoServiceImpl implements DepartamentoService {
         departamentoRepository.deleteById(id);
     }
 
-    private void salvarDepartamentoComCep(Departamento departamento){
+    private void salvarDepartamentoComAtributos(Departamento departamento){
         // Verifica se o Endereço do Departamento já existe (pelo CEP)
         String cep = departamento.getEndereco().getCep();
         Endereco endereco = enderecoRepository.findById(cep).orElseGet(() -> {
@@ -63,8 +63,22 @@ public class DepartamentoServiceImpl implements DepartamentoService {
             enderecoRepository.save(novoEndereco);
             return novoEndereco;
         });
+        // Vinculando o Endereco (novo ou existente) ao departamento
         departamento.setEndereco(endereco);
 
+        // Vinculando os Guardas ao departamento
+        List<Guarda> guardas = new ArrayList<Guarda>();
+        for (Guarda guardaDep : departamento.getGuardas()) {
+            String nome = guardaDep.getNome();
+            Guarda guarda = guardaRepository.findById(nome).orElseGet(() -> {
+                guardaRepository.save(guardaDep);
+                return guardaDep;
+            });
+            guardas.add(guarda);
+        }
+        departamento.setGuardas(guardas);
+
+        departamentoRepository.save(departamento);
     }
 
 
