@@ -18,34 +18,36 @@ Na URL, digitando "_departamentos/_" e o número de identificação do departame
 
 ### localhost:8080/departamentos/1
 
-`{
-"id": 1,
-"nomeLocal": "Salão de Assembleia",
-"endereco": {
-"cep": "17048-696"
-...
-},
-"guardas": [
+```
 {
-"nome": "José",
-"horaEntrada": "7",
-"horaSaida": "12",
-"local": "Guarita"
-},
-{
-"nome": "João",
-"horaEntrada": "12",
-"horaSaida": "17",
-"local": "Guarita"
-},
-{
-"nome": "Yuri",
-"horaEntrada": "7",
-"horaSaida": "16",
-"local": "Estacionamento"
+    "id": 1,
+    "nomeLocal": "Salão de Assembleia",
+    "endereco": {
+        "cep": "17048-696"
+        ...
+    },
+    "guardas": [
+        {
+            "nome": "José",
+            "horaEntrada": "7",
+            "horaSaida": "12",
+            "local": "Guarita"
+        },
+        {
+            "nome": "João",
+            "horaEntrada": "12",
+            "horaSaida": "17",
+            "local": "Guarita"
+        },
+        {
+            "nome": "Yuri",
+            "horaEntrada": "7",
+            "horaSaida": "16",
+            "local": "Estacionamento"
+        }
+    ]
 }
-]
-}`
+```
 
 ## Prático
 
